@@ -2,7 +2,8 @@
   (:require [clojure.string :as string]))
 
 ;;; Input
-(defn prompt [question]
+(defn prompt
+  [question]
   (print (str question " "))
   (flush)
   (-> (read-line)
@@ -12,11 +13,7 @@
 (defmulti format-message identity)
 (defmethod format-message "Brian" [_] "Greetings benevolent creator!")
 (defmethod format-message "Jennie" [_] "Hello Jennie! You are super rad!")
-(defmethod format-message :default [input]
-  (str
-   "Hello, "
-   input
-   ", nice to meet you!"))
+(defmethod format-message :default [input] (str "Hello, " input ", nice to meet you!"))
 
 (defn output-message
   [msg]
