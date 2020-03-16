@@ -1,7 +1,11 @@
 (ns brianium.counter
-  (:require [brianium.counter.cli :as cli])
+  (:require [brianium.counter.cli :as cli]
+            [brianium.counter.gui :as gui])
   (:gen-class))
 
 (defn -main
   [& args]
-  (cli/run))
+  (let [view (first args)]
+    (if (= view "gui")
+      (gui/run)
+      (cli/run))))
