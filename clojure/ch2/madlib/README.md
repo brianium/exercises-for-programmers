@@ -34,7 +34,7 @@ Do you walk your blue dog quickly? That's hilarious!
 
 The fact that inputs are not rendered in the order they are gathered adds complexity. This also seems to break out against the typical path for madlibs, though I suppose there is no rule that says the madlib proctor cannot ask out of order.
 
-I solved this by allowing a story specification to declare the order a particular of part of speech should be included into a story. Essentially specifiy it's position in the template:
+I solved this by allowing a story specification to declare the order of the part of speech within the story. Essentially specifiy it's position in the template:
 
 ```clojure
 (s/def ::ordered-part-of-speech (s/tuple ::part-of-speech int?))
