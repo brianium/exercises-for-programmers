@@ -12,7 +12,7 @@
 
 (s/def ::selection string?)
 
-(s/def ::answer (s/tuple ::part-of-speech ::selection))
+(s/def ::answer (s/tuple ::ordered-part-of-speech ::selection))
 
 (s/def ::answers (s/coll-of ::answer :into []))
 
