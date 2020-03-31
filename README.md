@@ -6,6 +6,5 @@ Target languages:
 
 * [Clojure](https://clojure.org/)
 * [F#](https://fsharp.org/)
-* [Rust](https://www.rust-lang.org/)
 
 I am just going to store solutions here without any context or information from the book. I suppose this repo warrants a **SPOILER ALERT**.
