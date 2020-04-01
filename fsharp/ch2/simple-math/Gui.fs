@@ -13,24 +13,25 @@ open Avalonia.FuncUI.Elmish
 open Avalonia.FuncUI.Components.Hosts
 
 open SimpleMath.Core
-open SimpleMath.Input
 open SimpleMath.Calc
 
+open Input.Parse
+
 type State =
-    { FirstNumber: ParseState
-      SecondNumber: ParseState }
+    { FirstNumber: ParseState<float>
+      SecondNumber: ParseState<float> }
 
 type State with
     member this.IsValid () =
         match [this.FirstNumber; this.SecondNumber] with
-        | [Success(x); Success(y)] -> x > 0.0 || y > 0.0
+        | [Positive(x); Positive(y)] -> x > 0.0 || y > 0.0
         | _ -> false
 
 let init =
-    { FirstNumber = Success(0.00)
-      SecondNumber = Success(0.00) }
+    { FirstNumber = Positive(0.00)
+      SecondNumber = Positive(0.00) }
 
-type Msg = Change of ParseState * ParseState
+type Msg = Change of ParseState<float> * ParseState<float>
 
 let update (msg: Msg) (state: State): State =
     match msg with
@@ -39,15 +40,15 @@ let update (msg: Msg) (state: State): State =
               FirstNumber = left
               SecondNumber = right }
 
-let feedback (number: ParseState) =
+let feedback (number: ParseState<float>) =
     match number with
     | Failure -> "Value is not a number"
-    | Negative -> "Number cannot be negative"
+    | Negative(_) -> "Number cannot be negative"
     | _ -> ""
 
-let text (number: ParseState) =
+let text (number: ParseState<float>) =
     match number with
-    | Success(d) -> d.ToString("0.##")
+    | Positive(d) -> d.ToString("0.##")
     | _ -> "0" 
 
 let d (f: float): string =
@@ -62,7 +63,7 @@ let renderOp op: Types.IView =
 
 let renderOps (state: State): List<Types.IView> =
     match [state.FirstNumber; state.SecondNumber] with
-    | [Success(x); Success(y)] -> all (x, y) |> List.map renderOp
+    | [Positive(x); Positive(y)] -> all (x, y) |> List.map renderOp
     | _ -> []
 
 let view (state: State) (dispatch) =
@@ -91,7 +92,7 @@ let view (state: State) (dispatch) =
                               TextBox.margin (0.0, 5.0, 10.0, 0.0)
                               TextBox.text (text state.FirstNumber) // <- This needed to be here to prevent an infinite rerender
                               TextBox.onTextChanged (fun text ->
-                                  (parse text, state.SecondNumber)
+                                  (parseFloat text, state.SecondNumber)
                                   |> Change
                                   |> dispatch) ]
 
@@ -102,7 +103,7 @@ let view (state: State) (dispatch) =
                               TextBox.margin (0.0, 5.0, 0.0, 0.0)
                               TextBox.text (text state.SecondNumber)
                               TextBox.onTextChanged (fun text ->
-                                  (state.FirstNumber, parse text)
+                                  (state.FirstNumber, parseFloat text)
                                   |> Change
                                   |> dispatch) ]
 

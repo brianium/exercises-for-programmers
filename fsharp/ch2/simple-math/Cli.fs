@@ -1,23 +1,11 @@
 module SimpleMath.Cli
 
-open SimpleMath.Calc;
+open SimpleMath.Calc
 open SimpleMath.Core
-open SimpleMath.Input
-
-let private read text =
-    printf "%s " text
-    stdin.ReadLine()
-    |> (fun s -> s.Trim())
-
-let rec private ask text result =
-    match result with
-    | Success(d) -> d
-    | Failure -> read (sprintf "Value must be a 32 bit integer.\n%s" text) |> parse |> ask text
-    | Negative -> read (sprintf "Value must not be negative.\n%s" text) |> parse |> ask text
-    | Empty -> read text |> parse |> ask text
+open Input.Cli
 
 let private prompt question1 question2 =
-    (ask question1 Empty, ask question2 Empty)
+    (askUnsignedFloat question1, askUnsignedFloat question2)
 
 let private d (f:float): string =
     f.ToString("0.##")

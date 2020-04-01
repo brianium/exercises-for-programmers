@@ -6,8 +6,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\lib\Input\Input.fsproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Core.fs" />
-    <Compile Include="Input.fs" />
     <Compile Include="Calc.fs" />
     <Compile Include="Cli.fs" />
     <Compile Include="Gui.fs" />
