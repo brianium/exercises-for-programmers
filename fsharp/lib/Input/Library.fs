@@ -40,13 +40,13 @@ module Cli =
         match result with
         | Positive(d) -> d
         | Negative(d) when allowNegatives -> d
-        | Failure | Negative _ | Empty -> match result with
-                                          | Failure -> (sprintf "Value must be a valid number.\n%s" text)
-                                          | Negative _ -> (sprintf "Value must not be negative.\n%s" text)
-                                          | _ -> text
-                                          |> prompt
-                                          |> parse
-                                          |> askForNumber parse text allowNegatives
+        | _ -> match result with
+               | Failure -> (sprintf "Value must be a valid number.\n%s" text)
+               | Negative _ -> (sprintf "Value must not be negative.\n%s" text)
+               | _ -> text
+               |> prompt
+               |> parse
+               |> askForNumber parse text allowNegatives
 
     let askInt (negatives: Negatives) text = askForNumber parseInt text (negatives = Negatives.Allowed) Parse.Empty
 
