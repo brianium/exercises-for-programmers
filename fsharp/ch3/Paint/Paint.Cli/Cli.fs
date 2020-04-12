@@ -1,7 +1,8 @@
-namespace Paint
+﻿namespace Paint
 
 module Cli =
     open Input.Cli
+    open Paint.Domain
 
     module RoomType =
 
