@@ -2,3 +2,5 @@ bin/
 obj/
 .paket/
 paket-files/
+.vs/
+.config/
