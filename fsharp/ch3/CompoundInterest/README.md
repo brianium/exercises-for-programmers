@@ -4,4 +4,4 @@ Just a really simple domain with another radical mobile app courtesy of [Fabulou
 
 ## Demo
 
-![Demo](/fsharp/ch3/CompoundIntereset/demo.gif)
+![Demo](/fsharp/ch3/CompoundInterest/demo.gif)
